@@ -37,7 +37,7 @@ const Topbar: React.FC = () => {
           )}
           <Image src='/images/logo.png' width={80} height={80} alt='logo' />
         </div>
-
+ 
         <div className='flex space-x-4'>
           <div className='flex items-center bg-white rounded-full px-2 py-1' onClick={() => route.push('/pages/favourite')}>
             <CiHeart className='text-2xl mr-1' />
@@ -52,8 +52,8 @@ const Topbar: React.FC = () => {
           {/* <CgProfile className='text-2xl' onClick={() => route.push('/login')} /> */}
           <ClerkProvider>
                      <SignedOut>
-                      <SignInButton />
-                      <SignUpButton />
+                      <p className='px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300 cursor-pointer mt-3'><SignInButton /></p>
+                      <p className='px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300 cursor-pointer mt-3'><SignUpButton /></p>
                     </SignedOut>
                     <SignedIn>
                       <UserButton />
