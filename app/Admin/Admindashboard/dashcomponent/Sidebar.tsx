@@ -30,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
         style={{ marginRight: isOpen ? 0 : '64px' }}  
       >
         <div className="flex bg-[#212529] flex-col">
-          <ul className="mt-4 flex flex-col gap-5 justify-center items-center">
+          <ul className="mt-4 flex flex-col gap-5 justify-center ">
             <li>
               <Link href="/Admin/Admindashboard" className="text-white hover:underline text-lg font-semibold">
                 <FaHome className="inline-block mr-2" /> Home

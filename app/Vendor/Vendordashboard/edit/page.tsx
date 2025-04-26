@@ -15,11 +15,11 @@ const Page: React.FC = () => {
   const [product, setProduct] = useState<any>([]);
   const [editdata, setEditData] = useState<any>({});
   const [edit, setEdit] = useState(true);
-
+  const id=typeof window !== 'undefined' ? localStorage.getItem('id') : null
   const loadData = async () => {
     const response = await getProductAdmin();
-    console.log(response?.products);
-    setProduct(response?.products);
+    const filteredProducts = await response?.products.filter((item: any) => item.VendorId == id);
+    setProduct(filteredProducts);
   }
   
   const handleSub=async(e)=>{

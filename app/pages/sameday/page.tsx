@@ -23,9 +23,9 @@ const page:React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-indigo-500 mt-5 mb-4 text-center ">Same Day Delivery</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {product?.map((item:any)=>(
-          <div key={item._id} className="max-w-xs bg-white rounded-lg overflow-hidden shadow-lg card card3">
-            <img className="w-full" src={item.proImage} alt="Product Image" />
+        {product?.map((item:any,index:number)=>(
+          <div key={index} className="max-w-xs bg-white rounded-lg overflow-hidden shadow-lg card card3">
+            <Image src={item.proImage} alt="Product Image" width={350} height={300} style={{ height:'200px' }} />
             <div className="p-4">
               <h3 className="text-xl font-semibold text-gray-800">{item.proName}</h3>
               <p className="text-gray-600 mt-2">{item.proDescription}</p>
@@ -50,3 +50,4 @@ const page:React.FC = () => {
 }
 
 export default page
+
