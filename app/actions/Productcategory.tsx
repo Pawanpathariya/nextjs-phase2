@@ -8,6 +8,7 @@ export async function SameDayDelivery() {
     const products = await prisma.productCate.findMany({
       where: {
         sameDay: true,
+        status:"Accepted"
       },
     });
     return { success: true, products };
@@ -23,7 +24,59 @@ export async function Flowers() {
   try {
     const products = await prisma.productCate.findMany({
       where: {
-        proCategory:'flower'
+        proCategory:'flower',
+        status:"Accepted"
+      },
+    });
+    return { success: true, products };
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return { error: 'Failed to fetch products' };
+  }
+}
+
+
+export async function Cakes() {
+  console.log("Fetching all products");
+  try {
+    const products = await prisma.productCate.findMany({
+      where: {
+        proCategory:'cake',
+        status:"Accepted"
+      },
+    });
+    return { success: true, products };
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return { error: 'Failed to fetch products' };
+  }
+}
+
+export async function Personalized() {
+  console.log("Fetching all products");
+  try {
+    const products = await prisma.productCate.findMany({
+      where: {
+        proCategory:'personalization',
+        status:"Accepted"
+      },
+    });
+    return { success: true, products };
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return { error: 'Failed to fetch products' };
+  }
+}
+
+
+
+export async function Plants() {
+  console.log("Fetching all products");
+  try {
+    const products = await prisma.productCate.findMany({
+      where: {
+        proCategory:'plant',
+        status:"Accepted"
       },
     });
     return { success: true, products };

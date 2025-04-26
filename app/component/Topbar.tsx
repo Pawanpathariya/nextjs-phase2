@@ -37,12 +37,9 @@ const Topbar: React.FC = () => {
           )}
           <Image src='/images/logo.png' width={80} height={80} alt='logo' />
         </div>
-        <div className='flex items-center border-1 border-black rounded-2xl px-2 py-1 w-1/4'>
-          <FaSearch className='text-2xl mr-2' />
-          <input type="text" placeholder='Search...' />
-        </div>
+
         <div className='flex space-x-4'>
-          <div className='flex items-center bg-white rounded-full px-2 py-1'>
+          <div className='flex items-center bg-white rounded-full px-2 py-1' onClick={() => route.push('/pages/favourite')}>
             <CiHeart className='text-2xl mr-1' />
             <span className='text-sm'>{prolen1}</span>
           </div>

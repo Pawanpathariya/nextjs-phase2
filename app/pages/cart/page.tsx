@@ -5,12 +5,12 @@ import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import {increaseQuantity, decreaseQuantity, removeProduct} from '../../redux/cartSlice';
-
+import { useRouter } from 'next/navigation';
 const page: React.FC = () => {
   const dispatch = useDispatch();
   const product = useSelector(state => state.addtocart.cart);
   const [total, setTotal] = useState<number>(0);
-
+const router = useRouter();
   useEffect(() => {
     let totalPrice = 0;
     product.forEach((p) => {
@@ -51,7 +51,10 @@ const page: React.FC = () => {
             </tr>
           ))}
           <tr>
-            <td colSpan={5} className="px-6 py-4 text-right font-bold">Total: {total}</td>
+            <td colSpan={4} className="px-6 py-4 text-right font-bold">Total: {total}</td>
+            <td className="px-6 py-4 text-right">
+              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => router.push('/pages/checkout')}>Checkout</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -60,4 +63,6 @@ const page: React.FC = () => {
 }
 
 export default page;
+
+
 

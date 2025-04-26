@@ -50,11 +50,6 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
               </Link>
             </li>
             <li>
-              <Link href="/Superadmin/Superadmindashboard/vendoredit" className="text-white hover:underline text-lg font-semibold">
-                <CiSearch className="inline-block " /> Vendor Search
-              </Link>
-            </li>
-            <li>
               <Link href="/Superadmin/Superadmindashboard/order" className="text-white hover:underline text-lg font-semibold">
                 <BsFillCartFill className="inline-block mr-2" /> Manage Order
               </Link>

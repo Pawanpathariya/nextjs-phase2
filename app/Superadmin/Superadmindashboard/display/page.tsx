@@ -107,6 +107,7 @@ const Page: React.FC = () => {
                     <th className="px-6 py-3 text-center">Category</th>
                     <th className="px-6 py-3 text-center">Same Day Delivery</th>
                     <th className="px-6 py-3 text-center">Type</th>
+                    <th className="px-6 py-3 text-center">Vendor Name</th>
                     <th className="px-6 py-3">Image</th>
                     <th></th>
                     <th></th>
@@ -122,6 +123,7 @@ const Page: React.FC = () => {
                       <td className="px-6 py-4 text-center">{item.proCategory}</td>
                       <td className="px-6 py-4 text-center">{item.sameDay ? 'Yes' : 'No'}</td>
                       <td className="px-6 py-4 text-center">{item.type}</td>
+                      <td>{item.vendor.name}</td>
                       <td className="px-6 py-4 text-center">
                         <Image
                           src={item.proImage}

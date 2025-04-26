@@ -7,7 +7,7 @@ const page:React.FC = () => {
   const name = typeof window !== 'undefined' ? localStorage.getItem('name') : null;
   const email = typeof window !== 'undefined' ? localStorage.getItem('email') : null;
   const user = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
-
+  const id = typeof window !== 'undefined' ? localStorage.getItem('id') : null;
   useEffect(()=>{
 if(!user || user!='vendor'){
 router.push('/Vendor')

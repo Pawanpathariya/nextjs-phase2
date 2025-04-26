@@ -2,8 +2,8 @@
 import Link from "next/link";
 import { Inter, Roboto_Mono } from 'next/font/google';
 import { Vendoraction } from "../../actions/vendoraction";
-import { useFormState } from 'react-dom';
 import { useRouter } from "next/navigation";
+import { useActionState } from 'react';
 const initialState = {
   success: false,
   error: ''
@@ -15,7 +15,7 @@ export { inter, robotoMono };
 
 const Signup: React.FC = () => {
     const router = useRouter();
-    const [state, formAction] = useFormState(Vendoraction, initialState);
+    const [state, formAction] = useActionState(Vendoraction, initialState);
   
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -112,3 +112,4 @@ const Signup: React.FC = () => {
 }
 
 export default Signup;
+

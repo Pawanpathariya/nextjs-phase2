@@ -20,35 +20,35 @@ const TopCard: React.FC = () => {
       </div>
       <div style={{width:"1px", backgroundColor:'red',height:"80px",marginTop:"10px"}}></div>
       <div className='p-2'>
-        <div>
+        <div onClick={()=>{router.push('/pages/cakes')}} className='cursor-pointer'>
           <img src="https://cdn.igp.com/f_auto,q_auto,t_pnopt0prodlp/banners/w-tiles-cakes-v202306.png" alt="Cakes" width={60} />
           <p>Cakes</p>
         </div>
       </div>
       <div style={{width:"1px", backgroundColor:'red',height:"80px",marginTop:"10px"}}></div>
       <div className='p-2'>
-        <div>
+        <div onClick={()=>{router.push('/pages/personalized')}} className='cursor-pointer'>
           <img src="https://cdn.igp.com/f_auto,q_auto,t_pnopt0prodlp/banners/w-tiles-personalize-v202306.png" alt="Personalized Gifts" width={60} />
           <p>Personalized</p>
         </div>
       </div>
       <div style={{width:"1px", backgroundColor:'red',height:"80px",marginTop:"10px"}}></div>
       <div className='p-2'>
-        <div>
+        <div onClick={()=>{router.push('/pages/plants')}} className='cursor-pointer' >
           <img src="https://cdn.igp.com/f_auto,q_auto,t_pnopt0prodlp/banners/w-tiles-plants-v202306.png" alt="Plants" width={60} />
           <p>Plants</p>
         </div>
       </div>
       <div style={{width:"1px", backgroundColor:'red',height:"80px",marginTop:"10px"}}></div>
       <div className='p-2'>
-        <div>
+        <div onClick={()=>{router.push('/pages/sameday')}} className='cursor-pointer' >
           <img src="https://cdn.igp.com/f_auto,q_auto,t_pnopt0prodlp/banners/w-tiles-new-arrivals-v202306-v2.png" alt="New Arrival Gifts" width={60} />
           <p>New Arrivals</p>
         </div>
       </div>
       <div style={{width:"1px", backgroundColor:'red',height:"80px",marginTop:"10px"}}></div>
       <div className='p-2'>
-        <div>
+        <div onClick={()=>{router.push('/pages/cakes')}} className='cursor-pointer'>
           <img src="https://cdn.igp.com/f_auto,q_auto,t_pnopt0prodlp/banners/international_d_tiles_5_20240530184913.png" alt="International" width={60} />
           <p>International</p>
         </div>

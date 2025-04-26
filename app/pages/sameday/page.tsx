@@ -6,12 +6,12 @@ import { useDispatch } from 'react-redux';
 import {add} from '../../redux/cartSlice'
 import { addfav } from '../../redux/favSlice';
 import Image from 'next/image'
-import { AiOutlineTruck } from "react-icons/ai";
 const page:React.FC = () => {
     const dispatch=useDispatch();
     const [product,setProduct]=useState<any>([]);
     const loaddata=async()=>{
         const response= await SameDayDelivery();
+        console.log(response?.products);
         setProduct(response?.products);
     }
     

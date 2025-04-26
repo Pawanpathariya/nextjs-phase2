@@ -1,8 +1,6 @@
 'use client'
 import { getProductAdmin } from '../../../actions/getProductAdmin';
 import { useEffect, useState } from 'react';
-import { DeleteProduct } from '../../../actions/deleteProduct';
-import { Editproduct } from '../../../actions/editaction';
 import Image from 'next/image';
 
 const initialState = {
@@ -13,21 +11,14 @@ const initialState = {
 
 const Page: React.FC = () => {
   const [product, setProduct] = useState<any>([]);
-  const [editdata, setEditData] = useState<any>({});
-  const [edit, setEdit] = useState(true);
   const id=typeof window !== 'undefined' ? localStorage.getItem('id') : null
   const loadData = async () => {
     const response = await getProductAdmin();
-    const filteredProducts = await response?.products.filter((item: any) => item.VendorId == id);
-    setProduct(filteredProducts);
+    console.log(response?.products);
+    const filteredProducts = await response?.products.filter((item: any) => item.vendorId== id);
+   setProduct(filteredProducts);
   }
   
-  const handleSub=async(e)=>{
-    e.preventDefault();
-     Editproduct({ ...editdata, id: editdata.id })
-    setEdit(true) 
-    loadData()
-  }
 
   useEffect(() => {
     loadData();
