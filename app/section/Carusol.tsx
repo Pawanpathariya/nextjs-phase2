@@ -2,7 +2,7 @@
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 import Image from 'next/image'
-import ban1 from '../../public/images/ban1.webp'
+import ban1 from '../../public/images/cont4.jpg'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Carusol: React.FC = () => {
