@@ -31,5 +31,8 @@
     "@tailwindcss/postcss": "^4",
     "@types/node": "22.14.1",
     "tailwindcss": "3.4.1"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
