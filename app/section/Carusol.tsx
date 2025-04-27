@@ -2,14 +2,13 @@
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 import Image from 'next/image'
-import ban1 from '../../public/images/cont4.jpg'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Carusol: React.FC = () => {
   return (
     <Carousel className='w-100 p-3 m-auto'>
       <Carousel.Item>
-        <Image src={ban1} alt="" width={1400} height={450} className='rounded-2xl m-auto' />
+        <Image src="/images/ban1.webp" alt="" width={1400} height={450} className='rounded-2xl m-auto' />
         <Carousel.Caption>
         </Carousel.Caption>
       </Carousel.Item>
