@@ -1,21 +1,22 @@
 'use client';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Inter, Roboto_Mono } from 'next/font/google';
+// import { Inter, Roboto_Mono } from 'next/font/google';
 import { Adminaction } from "../../actions/adminaction";
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
+import { useEffect } from "react";
 const initialState = {
   success: false,
   error: ''
 };
-const inter = Inter({ subsets: ['latin'], weight: '400', variable: '--font-inter' });
-const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: '400', variable: '--font-roboto-mono' });
+// const inter = Inter({ subsets: ['latin'], weight: '400', variable: '--font-inter' });
+// const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: '400', variable: '--font-roboto-mono' });
 
-export { inter, robotoMono };
+// export { inter, robotoMono };
 
 const Signup: React.FC = () => {
     const router = useRouter();
-    const [state, formAction] = useFormState(Adminaction, initialState);
+    const [state, formAction] = useActionState(Adminaction, initialState);
   
   useEffect(() => {
     if (state.success) {
@@ -109,3 +110,4 @@ const Signup: React.FC = () => {
 }
 
 export default Signup
+

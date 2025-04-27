@@ -2,19 +2,19 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Inter, Roboto_Mono } from 'next/font/google';
+// import { Inter, Roboto_Mono } from 'next/font/google';
 import { LoginAdminAct } from "../actions/loginAdminAct";
 import { useActionState } from "react";
 
-const inter = Inter({ subsets: ['latin'], weight: '400', variable: '--font-inter' });
-const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: '400', variable: '--font-roboto-mono' });
+// const inter = Inter({ subsets: ['latin'], weight: '400', variable: '--font-inter' });
+// const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: '400', variable: '--font-roboto-mono' });
 
 const initialState = {
   success: false,
   error: ''
 };
 
-export { inter, robotoMono };
+// export { inter, robotoMono };
 
 const Login: React.FC = () => {
   const router = useRouter();

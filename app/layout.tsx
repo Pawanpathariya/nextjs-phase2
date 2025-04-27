@@ -28,11 +28,13 @@
 // }
 
 // app/layout.tsx (TypeScript version)
+// app/layout.tsx
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from 'next/script';
 import ReduxProvider from "./reduxProvider";
 import ClerkProviders from "./clerkProvider";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -54,14 +56,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
- <Script
-  type="text/javascript"
-  src="https://checkout.razorpay.com/v1/checkout.js"
-  strategy="afterInteractive"
-/>
+    <html lang="en" suppressHydrationWarning>
+      <Script
+        type="text/javascript"
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        strategy="afterInteractive"
+      />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <ClerkProviders>
           <ReduxProvider>
@@ -72,4 +75,3 @@ export default function RootLayout({
     </html>
   );
 }
-
