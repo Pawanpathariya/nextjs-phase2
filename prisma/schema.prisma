@@ -18,7 +18,7 @@ model ProductCate {
   proImage       String
   status         String   @default("pending")
   vendorId       Int
-  vendor         Vendor   @relation(fields: [vendorId], references: [id], name: "VendorToProduct")
+  vendor         Vendor   @relation("VendorToProduct", fields: [vendorId], references: [id])
 }
 
 model Vendor {
@@ -42,4 +42,21 @@ model Category {
   id    Int    @id @default(autoincrement())
   cat   String
   Image String
+}
+
+model Order {
+  id                Int      @id @default(autoincrement())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  userName          String
+  userEmail         String
+  phoneNumber       String
+  address           String
+  pincode           String
+  products          Json
+  amount            Int
+  razorpayOrderId   String
+  razorpayPaymentId String
+  razorpaySignature String
+  paymentStatus     String   @default("pending")
 }

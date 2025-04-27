@@ -1,5 +1,6 @@
 'use client';
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Inter, Roboto_Mono } from 'next/font/google';
 import { Adminaction } from "../../actions/adminaction";
 import { useFormState } from 'react-dom';
@@ -13,8 +14,15 @@ const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: '400', variable: '-
 export { inter, robotoMono };
 
 const Signup: React.FC = () => {
+    const router = useRouter();
     const [state, formAction] = useFormState(Adminaction, initialState);
   
+  useEffect(() => {
+    if (state.success) {
+      router.push("/Admin");
+    }
+  }, [state.success, router]);
+
   return (
     <>
       <div className="w-full border border-gray-500 h-13 text-center">
