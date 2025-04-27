@@ -29,21 +29,21 @@
 
 // app/layout.tsx (TypeScript version)
 // app/layout.tsx
-import { Geist, Geist_Mono } from "next/font/google";
+// import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from 'next/script';
 import ReduxProvider from "./reduxProvider";
 import ClerkProviders from "./clerkProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 export const metadata = {
   title: "Create Next App",
@@ -63,7 +63,7 @@ export default function RootLayout({
         strategy="afterInteractive"
       />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
         <ClerkProviders>
