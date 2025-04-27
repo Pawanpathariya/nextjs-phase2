@@ -99,13 +99,7 @@ const CheckoutPage: React.FC = () => {
     <>
       <Topbar />
       <div className="container mx-auto p-4">
-<Script
-  type="text/javascript"
-  src="https://checkout.razorpay.com/v1/checkout.js"
-  strategy="afterInteractive"
 
-  onError={(err) => console.error('Error loading Razorpay script:', err)}
-/>
         <h1 className="text-3xl font-bold mb-4">Checkout</h1>
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-1/2 md:mr-4">
@@ -208,6 +202,10 @@ const CheckoutPage: React.FC = () => {
         </div>
       </div>
       <Footer />
+      <Script
+        id="razorpay-checkout-js"
+        src="https://checkout.razorpay.com/v1/checkout.js"
+      />
     </>
   );
 };

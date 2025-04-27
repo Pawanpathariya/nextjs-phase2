@@ -33,7 +33,8 @@
 import "./globals.css";
 import Script from 'next/script';
 import ReduxProvider from "./reduxProvider";
-import ClerkProviders from "./clerkProvider";
+import { ClerkProvider } from '@clerk/nextjs';
+
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -57,20 +58,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Script
-        type="text/javascript"
-        src="https://checkout.razorpay.com/v1/checkout.js"
-        strategy="afterInteractive"
-      />
       <body
         // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <ClerkProviders>
+        <ClerkProvider>
           <ReduxProvider>
             {children}
           </ReduxProvider>
-        </ClerkProviders>
+        </ClerkProvider>
       </body>
     </html>
   );
