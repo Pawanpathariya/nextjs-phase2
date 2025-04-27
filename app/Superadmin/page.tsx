@@ -1,11 +1,11 @@
 'use client';
 import Link from "next/link";
-import { Inter, Roboto_Mono } from 'next/font/google';
-const inter = Inter({ subsets: ['latin'], weight: '400', variable: '--font-inter' });
-const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: '400', variable: '--font-roboto-mono' });
+// import { Inter, Roboto_Mono } from 'next/font/google';
+// const inter = Inter({ subsets: ['latin'], weight: '400', variable: '--font-inter' });
+// const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: '400', variable: '--font-roboto-mono' });
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-export { inter, robotoMono };
+// export { inter, robotoMono };
 const Login: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState<any>("");
