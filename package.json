@@ -8,9 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "engines": {
-  "node": "16.x" 
-},
+
   "dependencies": {
     "@clerk/nextjs": "^6.16.0",
     "@prisma/client": "^6.6.0",
