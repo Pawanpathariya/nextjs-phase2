@@ -12,7 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
       <DashboardTopbar />
       <div className="flex text-black">
         <div className="sticky -mt-2">
-          <Sidebar /> {/* No children passed to Sidebar */}
+          <Sidebar /> 
         </div>
         <div className="text-black w-full mt-20 p-2">{children}</div>
       </div>
