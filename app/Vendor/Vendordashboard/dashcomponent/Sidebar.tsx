@@ -1,14 +1,10 @@
 'use client';
-import React, { useState, ReactNode } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaHome, FaPlus, FaEdit } from 'react-icons/fa';
 import { BsDisplay } from 'react-icons/bs';
 
-interface SidebarProps {
-  children: ReactNode;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ children }) => {
+const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const toggleSidebar = () => {
@@ -54,10 +50,9 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
           </ul>
         </div>
       </div>
-      {isOpen && <div className="ml-64">{children}</div>}
+      {isOpen && <div className="ml-64">{/* You can add content here that should appear when the sidebar is open */}</div>}
     </>
   );
 };
 
 export default Sidebar;
-
