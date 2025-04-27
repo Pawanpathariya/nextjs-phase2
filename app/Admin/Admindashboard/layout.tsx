@@ -1,7 +1,7 @@
 'use client'
 import DashboardTopbar from './dashcomponent/DashboardTopbar';
 import Sidebar from './dashcomponent/Sidebar';
-import { useEffect } from 'react';
+
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -12,7 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
       <DashboardTopbar />
       <div className="flex text-black">
         <div className="sticky -mt-2">
-          <Sidebar/>
+          <Sidebar /> {/* No children passed to Sidebar */}
         </div>
         <div className="text-black w-full mt-20 p-2">{children}</div>
       </div>
@@ -21,4 +21,3 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
 );
 
 export default Layout;
-
