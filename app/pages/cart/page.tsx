@@ -1,16 +1,29 @@
 'use client'
-import React from 'react'
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Image from 'next/image';
-import {increaseQuantity, decreaseQuantity, removeProduct} from '../../redux/cartSlice';
+import { increaseQuantity, decreaseQuantity, removeProduct } from '../../redux/cartSlice';
 import { useRouter } from 'next/navigation';
+
+// Define RootState type for your Redux store
+interface RootState {
+  addtocart: {
+    cart: {
+      id: string;
+      proImage: string;
+      proName: string;
+      proPrice: number;
+      quantity: number;
+    }[];
+  };
+}
+
 const page: React.FC = () => {
   const dispatch = useDispatch();
-  const product = useSelector(state => state.addtocart.cart);
+  const product = useSelector((state: RootState) => state.addtocart.cart); // Type the state here
   const [total, setTotal] = useState<number>(0);
-const router = useRouter();
+  const router = useRouter();
+
   useEffect(() => {
     let totalPrice = 0;
     product.forEach((p) => {
@@ -36,7 +49,9 @@ const router = useRouter();
         <tbody>
           {product.map((p) => (
             <tr key={p.id} className="hover:bg-gray-100">
-              <td className="px-6 py-4"><Image src={p.proImage} alt={p.proName} width={100} height={100} /></td>
+              <td className="px-6 py-4">
+                <Image src={p.proImage} alt={p.proName} width={100} height={100} />
+              </td>
               <td className="px-6 py-4">{p.proName}</td>
               <td className="px-6 py-4 text-center">
                 <button onClick={() => dispatch(increaseQuantity(p))} className="bg-rose-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded">+</button>
@@ -60,9 +75,6 @@ const router = useRouter();
       </table>
     </div>
   );
-}
+};
 
 export default page;
-
-
-
