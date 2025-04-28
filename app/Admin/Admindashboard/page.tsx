@@ -50,15 +50,15 @@ const getVendors=async()=>{
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white p-4 rounded-md shadow-md">
           <h2 className="text-xl font-bold">Total Orders</h2>
-          <p className="text-4xl font-bold">{totalorders}</p>
+          <p className="text-4xl font-bold">{totalorders.toString()}</p>
         </div>
         <div className="bg-white p-4 rounded-md shadow-md">
           <h2 className="text-xl font-bold">Total Products</h2>
-          <p className="text-4xl font-bold">{totalproducts}</p>
+          <p className="text-4xl font-bold">{totalproducts.toString()}</p>
         </div>
         <div className="bg-white p-4 rounded-md shadow-md">
           <h2 className="text-xl font-bold">Total Vendors</h2>
-          <p className="text-4xl font-bold">{totalvendors}</p>
+          <p className="text-4xl font-bold">{totalvendors.toString()}</p>
         </div>
       </div>
 
