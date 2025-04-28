@@ -107,6 +107,7 @@ const CheckoutPage: React.FC = () => {
     return null; 
   }
 
+
   return (
     <>
       <Topbar />

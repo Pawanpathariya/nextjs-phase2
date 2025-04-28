@@ -35,8 +35,8 @@ const Page: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {orders && orders.map((order: any) => (
-              <tr key={order.id} className="hover:bg-gray-100">
+            {orders.map((order: any, index: number) => (
+              <tr key={index} className="hover:bg-gray-100">
                 <td className="border p-2">{order.id}</td>
                 <td className="border p-2">{order.userName}</td>
                 <td className="border p-2">{order.userEmail}</td>
@@ -44,8 +44,8 @@ const Page: React.FC = () => {
                 <td className="border p-2">{new Date(order.createdAt).toLocaleString()}</td>
                 <td className="border p-2">₹ {order.amount}</td>
                 <td className="border p-2">
-                  {order.products && order.products.map((item: any) => (
-                    <div key={item.id} className="flex items-center mb-2">
+                  {order.products.map((item: any, index: number) => (
+                    <div key={index} className="flex items-center mb-2">
                       <Image src={item.image} alt={item.productName} className="w-12 h-12 mr-2 rounded-md" width={48} height={48} />
                       <div>
                         <p className="font-bold">{item.productName}</p>

@@ -2,7 +2,7 @@
 
 import {prisma} from '../../lib/prisma';
 
-export async function getVendorPro({id}) {
+export async function getVendorPro(id) {
   console.log("Fetching all vendors");
   try {
     const products = await prisma.productCate.findMany({

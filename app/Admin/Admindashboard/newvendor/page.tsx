@@ -22,12 +22,7 @@ const Page: React.FC = () => {
     setProduct(response?.products);
   };
   
-  const handleSub = async (e) => {
-    e.preventDefault();
-    Editproduct({ ...editdata, id: editdata.id });
-    setEdit(true);
-    loadData();
-  };
+
 
   const handleChangeStatus = async (id, stat) => {
     await ChangeStatus({ id, stat });
@@ -42,53 +37,8 @@ const Page: React.FC = () => {
     <>
       <div className='w-full'>
         <h1 className="text-2xl font-bold mb-4 text-center">Product List</h1>
-        <div className="w-310">
-          {!edit ? (
-            <form>
-              <div className='flex flex-col'>
-                <div className="flex bg-white rounded-md shadow-md p-4 h-16 gap-2">
-                  <label htmlFor="category" className="text-gray-600 w-50 font-semibold block mb-2">Select Category:</label>
-                  <select name="category" value={editdata.proCategory} onChange={(e) => setEditData({ ...editdata, proCategory: e.target.value })}>
-                    <option value="" className='w-full'>----Select-----</option>
-                    <option value="electric" className='w-full'>Electric</option>
-                    <option value="jwellery" className='w-full'>Jwellery</option>
-                    <option value="gift" className='w-full'>Gift</option>
-                  </select>
-                </div>
-    
-                <div className="flex bg-white rounded-md shadow-md p-4 h-16 gap-2">
-                  <label htmlFor="name" className="text-gray-600 w-43 font-semibold block mb-2">Product Name:</label>
-                  <input type="text" id="name" name="name" className="border-2 border-gray-500 p-2 rounded-md w-full" value={editdata.proName} onChange={(e) => setEditData({ ...editdata, proName: e.target.value })} />
-                </div>
-    
-                <div className="flex bg-white rounded-md shadow-md p-4 h-16 gap-2">
-                  <label htmlFor="price" className="text-gray-600 w-43 font-semibold block mb-2">Price:</label>
-                  <input type="number" id="price" name="price" className="border-2 border-gray-500 p-2 rounded-md w-full" value={editdata.proPrice} onChange={(e) => setEditData({ ...editdata, proPrice: e.target.value })} />
-                </div>
-    
-                <div className="flex bg-white rounded-md shadow-md p-4 h-16 gap-2">
-                  <label htmlFor="description" className="text-gray-600 w-43 font-semibold block mb-2">Description:</label>
-                  <textarea id="description" name="description" className="border-2 border-gray-500 p-2 rounded-md w-full" value={editdata.proDescription} onChange={(e) => setEditData({ ...editdata, proDescription: e.target.value })} />
-                </div>
-    
-                <div className="flex bg-white rounded-md shadow-md p-4 h-16 gap-2">
-                  <label htmlFor="type" className="text-gray-600 w-50 font-semibold block mb-2">Type of Gift:</label>
-                  <select name="type" value={editdata.type} onChange={(e) => setEditData({ ...editdata, type: e.target.value })}>
-                    <option value="" className='w-full'>----Select-----</option>
-                    <option value="birthday" className='w-full'>birthday</option>
-                    <option value="anniversary" className='w-full'>anniversary</option>
-                    <option value="marriage" className='w-full'>marriage</option>
-                    <option value="other" className='w-full'>other</option>
-                  </select>
-                </div>
-    
-                <div className="flex justify-center mt-4">
-                  <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md" onClick={handleSub}>Save changes</button>
-                </div>
-              </div>
-            </form>
-          ) : (
-            <table className="table w-full m-auto">
+        <div className="w-310 overflow-x-scroll h-150 ">
+            <table className="table w-full m-auto ">
               <thead>
                 <tr className="bg-gray-200" key={product.id}>
                   <th className="px-6 py-3 text-center">Name</th>
@@ -97,6 +47,7 @@ const Page: React.FC = () => {
                   <th className="px-6 py-3 text-center">Category</th>
                   <th className="px-6 py-3 text-center">Same Day Delivery</th>
                   <th className="px-6 py-3 text-center">Type</th>
+                  <th className="px-6 py-3 text-center">Vendor  name </th>
                   <th className="px-6 py-3">Image</th>
                   <th>Status</th>
                 </tr>
@@ -111,6 +62,7 @@ const Page: React.FC = () => {
                       <td className="px-6 py-4 text-center">{item.proCategory}</td>
                       <td className="px-6 py-4 text-center">{item.sameDay ? 'Yes' : 'No'}</td>
                       <td className="px-6 py-4 text-center">{item.type}</td>
+                      <td className="px-6 py-4 text-center" >{item.vendor.name}</td>
                       <td className="px-6 py-4 text-center">
                         <Image
                           src={item.proImage}
@@ -129,7 +81,7 @@ const Page: React.FC = () => {
                 ))}
               </tbody>
             </table>
-          )}
+          
         </div>
       </div>
     </>
