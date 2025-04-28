@@ -26,8 +26,8 @@ const CheckoutPage: React.FC = () => {
   useEffect(() => {
     setIsMounted(true); 
 
-    const name = localStorage.getItem('name') || '';
-    const email = localStorage.getItem('email') || '';
+    const name =   typeof window !== 'undefined' ? localStorage.getItem('name') : null;
+    const email = typeof window !== 'undefined' ? localStorage.getItem('email') : null;
     setUserInfo({ name, email });
   }, []);
 

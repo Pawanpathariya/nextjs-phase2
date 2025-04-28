@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const Page: React.FC = () => {
-  const id = localStorage.getItem('id');
+  const id =  typeof window !== 'undefined' ? localStorage.getItem('id') : null;
   const [state, formAction] = useActionState(Productaction, initialState);
   const [category, setCategory] = useState<any>([]);
   const [formData, setFormData] = useState<any>(null);
