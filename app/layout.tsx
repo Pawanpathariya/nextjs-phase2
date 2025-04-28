@@ -62,7 +62,7 @@ export default function RootLayout({
         // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >  <Toaster position="top-center" />
-        <ClerkProvider>
+        <ClerkProvider  publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || ""} >
           <ReduxProvider>
             {children}
           </ReduxProvider>
