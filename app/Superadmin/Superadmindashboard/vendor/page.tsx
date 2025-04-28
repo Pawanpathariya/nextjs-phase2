@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { getVendorAdmin } from '../../../actions/getVendorAct';
 import { DeleteVendor } from '../../../actions/deleteVendor';
 import { FaTrash } from 'react-icons/fa';
-
+import { getVendorPro } from '../../../actions/getVendorPro';
+import Image from 'next/image';
 const VendorList: React.FC = () => {
   const [vendor, setVendor] = useState<any>([]);
   const [search, setSearch] = useState('');
   const [filteredVendors, setFilteredVendors] = useState<any>([]);
-
+  const [btn, setBtn] = useState(true);
+  const[products, setProducts] = useState<any>([]);
   useEffect(() => {
     loadData();
   }, []);
@@ -34,8 +36,16 @@ const VendorList: React.FC = () => {
     setSearch(e.target.value);
   };
 
+
+  const GetPro=async (id: any) => {
+    const response = await getVendorPro(id);  
+    setProducts(response.products);
+    setBtn(false)
+  }
+  
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
       <h1 className="text-3xl font-bold leading-tight mt-0 mb-2 text-center">
         Vendors List
       </h1>
@@ -45,13 +55,13 @@ const VendorList: React.FC = () => {
           placeholder="Search vendor"
           className="border-2 border-gray-500 p-2 rounded-md w-full md:w-1/2"
           value={search}
-          onChange={handleSearchInput} // Use handleSearchInput for input field
+          onChange={handleSearchInput} 
         />
         <div className="relative w-full md:w-1/2 mt-4 md:mt-0">
           <select
             className="appearance-none border-2 border-gray-500 p-2 rounded-md w-full"
             value={search}
-            onChange={handleSearchSelect} // Use handleSearchSelect for select field
+            onChange={handleSearchSelect} 
           >
             <option value="">Select Vendor</option>
             {vendor.map((item) => (
@@ -71,13 +81,16 @@ const VendorList: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-x-auto">
-        <table className="table w-full text-center mt-4">
+      <div className="overflow-x-auto h-120">
+        {
+        (btn)?(
+          <table className="table w-full text-center mt-4">
           <thead>
             <tr className="bg-gray-200">
               <th className="px-6 py-3">Name</th>
               <th className="px-6 py-3">Email</th>
               <th className="px-6 py-3">Phone</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -102,12 +115,57 @@ const VendorList: React.FC = () => {
                     <FaTrash />
                   </button>
                 </td>
+                <td>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>{GetPro(item.id)}}>Products</button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+
+        ):(
+<>
+        <table className="table w-full text-center mt-4">
+          <thead>
+            <tr className="bg-gray-200">
+            <th className="px-6 py-3 text-center">Name</th>
+                    <th className="px-6 py-3 text-center">Price</th>
+                    <th className="px-6 py-3 text-center">Description</th>
+                    <th className="px-6 py-3 text-center">Category</th>
+                    <th className="px-6 py-3 text-center">Same Day Delivery</th>
+                    <th className="px-6 py-3 text-center">Type</th>
+                    <th className="px-6 py-3 text-center">Images</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((item: any) => (
+              <tr key={item.id} className="hover:bg-gray-100">
+                <td className="px-6 py-4 text-center">{item.proName}</td>
+                <td className="px-6 py-4 text-center">{item.proPrice}</td>
+                <td className="px-6 py-4 text-center">{item.proDescription}</td>
+                <td className="px-6 py-4 text-center">{item.proCategory}</td>
+                <td className="px-6 py-4 text-center">{(item.sameDay)?("Yes"):"No"}</td>
+                <td className="px-6 py-4 text-center">{item.type}</td>
+                <td className="px-6 py-4 text-center"> <Image src={item.proImage} width={50} height={50} alt={item.proName}/>  </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>{
+          setBtn(true)
+        }} >Close</button>
+        </>
+        )
+      
+      }
+
+
       </div>
     </div>
+
+
+    </>
   );
 };
 

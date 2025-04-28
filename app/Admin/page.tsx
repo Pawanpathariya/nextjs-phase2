@@ -20,7 +20,16 @@ const Login: React.FC = () => {
   const router = useRouter();
   const [state, formAction] = useActionState(LoginAdminAct, initialState);
 
+  const user = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+  const email = typeof window !== 'undefined' ? localStorage.getItem('email') : null;
+  const name = typeof window !== 'undefined' ? localStorage.getItem('name') : null;
   
+useEffect(() => {
+    if (user && user === 'admin') {
+      router.push("/Admin/Admindashboard");
+    }
+  }, []);
+
   useEffect(() => {
     if (state.success) {
       console.log(state.admin);
