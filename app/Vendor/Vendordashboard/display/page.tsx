@@ -16,7 +16,7 @@ const Page: React.FC = () => {
   const [editdata, setEditData] = useState<any>({});
   const [edit, setEdit] = useState(true);
   const [category, setCategory] = useState<any>([]);
-  const id=typeof window !== 'undefined' ? localStorage.getItem('id') : null
+  const id=typeof window !== 'undefined' ? localStorage.getItem('id') : nullzz
 
 
   const loadData = async () => {
