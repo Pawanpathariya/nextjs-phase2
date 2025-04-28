@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 // import { Inter, Roboto_Mono } from 'next/font/google';
 import { LoginVendorAct } from "../actions/loginvendoract";
 import { useActionState } from "react";
+import { toast } from 'react-hot-toast';
+
 
 // const inter = Inter({ subsets: ['latin'], weight: '400', variable: '--font-inter' });
 // const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: '400', variable: '--font-roboto-mono' });
@@ -24,6 +26,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (state.success) {
       console.log(state.vendor);
+      toast.success("login successfully")
       localStorage.setItem("user","vendor")
       localStorage.setItem("email",state.vendor.email)
       localStorage.setItem("name",state.vendor.name)

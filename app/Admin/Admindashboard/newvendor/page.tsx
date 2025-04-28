@@ -90,7 +90,7 @@ const Page: React.FC = () => {
           ) : (
             <table className="table w-full m-auto">
               <thead>
-                <tr className="bg-gray-200">
+                <tr className="bg-gray-200" key={product.id}>
                   <th className="px-6 py-3 text-center">Name</th>
                   <th className="px-6 py-3 text-center">Price</th>
                   <th className="px-6 py-3 text-center">Description</th>

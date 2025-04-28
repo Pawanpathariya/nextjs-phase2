@@ -5,6 +5,8 @@ import Link from "next/link";
 // const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: '400', variable: '--font-roboto-mono' });
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from 'react-hot-toast';
+
 // export { inter, robotoMono };
 const Login: React.FC = () => {
   const router = useRouter();
@@ -13,11 +15,11 @@ const Login: React.FC = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email == "admin@gmail.com" && password == "admin123") {
-      alert('login successful');
+      toast.success('login successful');
       localStorage.setItem("user", "superadmin");
       router.push("/Superadmin/Superadmindashboard");
     } else {
-      alert("Invalid Credentials");
+      toast.error("Invalid Credentials");
     }
   };
   return (

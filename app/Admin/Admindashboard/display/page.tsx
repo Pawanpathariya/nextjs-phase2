@@ -16,12 +16,11 @@ const Page: React.FC = () => {
   const [editdata, setEditData] = useState<any>({});
   const [edit, setEdit] = useState(true);
   const [category, setCategory] = useState<any>([]);
-
+  const [search, setSearch] = useState('');
 
   const loadData = async () => {
     const response = await getProductAdmin();
-    console.log(response?.products);
-    setProduct(response?.products);
+    setProduct(response?.products || []);
   }
   
   const handleSub=async(e)=>{
@@ -39,7 +38,7 @@ const Page: React.FC = () => {
   const loadData1 = async () => {
     try {
       const categorys = await getCategory();
-      setCategory(categorys.categorys);
+      setCategory(categorys.categorys || []);
     } catch (error) {
       console.error('Error fetching categorys:', error);
     }
@@ -49,6 +48,7 @@ const Page: React.FC = () => {
     loadData1();
   }, []);
 
+  const filteredProducts = product?.filter(item => item.proName.toLowerCase().includes(search.toLowerCase()))
 
   return (
     <>
@@ -56,6 +56,9 @@ const Page: React.FC = () => {
       <div className='w-full'>
         <h1 className="text-2xl font-bold mb-4 text-center">Product List</h1>
         <div className="w-310 overflow-y-auto h-screen">
+          <div className="flex justify-between items-center mb-4">
+            <input type="text" placeholder="Search product" className="border-2 border-gray-500 p-2 rounded-md w-full" value={search} onChange={(e) => setSearch(e.target.value)} />
+          </div>
           {!edit ? (
                 <form className="bg-white p-4 rounded-md shadow-md">
                   <h2 className="text-2xl font-semibold mb-4">Edit Product</h2>
@@ -97,7 +100,7 @@ const Page: React.FC = () => {
                   </div>
                 </form>
           ) : (
-            <div className="overflow-y-auto h-300">
+            <div className="overflow-y-auto h-150">
               <table className="table w-full m-auto">
                 <thead>
                   <tr className="bg-gray-200">
@@ -114,8 +117,7 @@ const Page: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {product.map((item: any) => (
-                     item.status === 'Accepted' && (
+                  {filteredProducts?.map((item: any) => (
                     <tr key={item.id} className="hover:bg-gray-100">
                       <td className="px-6 py-4 text-center">{item.proName}</td>
                       <td className="px-6 py-4 text-center">{item.proPrice}</td>
@@ -150,7 +152,6 @@ const Page: React.FC = () => {
                         </button>
                       </td>
                     </tr>
-                     )
                   ))}
                 </tbody>
               </table>

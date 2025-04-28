@@ -1,13 +1,13 @@
 'use server';
 
 import Razorpay from 'razorpay';
+import { prisma } from '../../lib/prisma';
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID!,
   key_secret: process.env.RAZORPAY_KEY_SECRET!,
 });
 
-// Creates a Razorpay order
 export async function createOrder(amount: number,user: any, products: any) {
   const options = {
     amount, // Amount in paise (cents)
@@ -17,8 +17,6 @@ export async function createOrder(amount: number,user: any, products: any) {
 
   try {
     const orders = await razorpay.orders.create(options);
- 
-
     if (!orders || !orders.id) {
       throw new Error('Order creation failed: No order ID received.');
     }

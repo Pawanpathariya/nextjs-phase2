@@ -34,7 +34,7 @@ import "./globals.css";
 import Script from 'next/script';
 import ReduxProvider from "./reduxProvider";
 import { ClerkProvider } from '@clerk/nextjs';
-
+import { Toaster } from "react-hot-toast";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -61,7 +61,7 @@ export default function RootLayout({
       <body
         // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
-      >
+      >  <Toaster position="top-center" />
         <ClerkProvider>
           <ReduxProvider>
             {children}

@@ -48,7 +48,7 @@ const Sidebar: React.FC = () => {
 
             <li>
               <Link href="/Admin/Admindashboard/order" className="text-white hover:underline text-lg font-semibold">
-                <BsFillCartFill className="inline-block mr-2" /> Manage Order
+                <BsFillCartFill className="inline-block mr-2" />  Order
               </Link>
             </li>
             <li>

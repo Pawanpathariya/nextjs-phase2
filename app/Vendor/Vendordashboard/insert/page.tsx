@@ -1,8 +1,8 @@
 'use client'
 import { Productaction } from '../../../actions/productaction';
 import { getCategory } from '../../../actions/addCategory';
-import { useActionState, useEffect, useState } from 'react';
-
+import { useActionState, useEffect, useState, startTransition } from 'react';
+import { toast } from 'react-hot-toast';
 const initialState = {
   success: false,
   error: ''
@@ -16,16 +16,18 @@ const Page: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    formData.append('id', id as string);
-    formAction(formData);
-    setFormData(null);
+    startTransition(() => {
+      const formData = new FormData(event.currentTarget);
+      formData.append('id', id as string);
+      formAction(formData);
+      setFormData(null);
+    });
   };
 
   useEffect(() => {
     if (state.success) {
-      alert("Data inserted");
       setFormData(null);
+      toast.success('Data inserted successfully!');
     }
   }, [state.success]);
 
@@ -110,4 +112,5 @@ const Page: React.FC = () => {
 };
 
 export default Page;
+
 
