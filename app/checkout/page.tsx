@@ -76,7 +76,7 @@ const CheckoutPage: React.FC = () => {
           if (verifyRes.isOk) {
             const orderResponse = await Orderdatabase({response,orderData});
             if (orderResponse) {
-              dispatch(removeallProduct());
+              dispatch(removeallProduct({}));
               router.push('/pages/thankyou');
             } else {
               console.error('Order database error');
