@@ -5,12 +5,29 @@ import { DeleteVendor } from '../../../actions/deleteVendor';
 import { FaTrash } from 'react-icons/fa';
 import { getVendorPro } from '../../../actions/getVendorPro';
 import Image from 'next/image';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  CardActions,
+} from '@mui/material';
+
 const VendorList: React.FC = () => {
   const [vendor, setVendor] = useState<any>([]);
   const [search, setSearch] = useState('');
   const [filteredVendors, setFilteredVendors] = useState<any>([]);
-  const [btn, setBtn] = useState(true);
-  const[products, setProducts] = useState<any>([]);
+  const [showProducts, setShowProducts] = useState<boolean>(false);
+  const [products, setProducts] = useState<any>([]);
+
   useEffect(() => {
     loadData();
   }, []);
@@ -36,137 +53,167 @@ const VendorList: React.FC = () => {
     setSearch(e.target.value);
   };
 
-
-  const GetPro=async (id: any) => {
-    const response = await getVendorPro(id);  
+  const GetPro = async (id: any) => {
+    const response = await getVendorPro(id);
     setProducts(response.products);
-    setBtn(false)
-  }
-  
+    setShowProducts(true);
+  };
+
   return (
     <>
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
-      <h1 className="text-3xl font-bold leading-tight mt-0 mb-2 text-center">
-        Vendors List
-      </h1>
-      <div className="flex flex-col md:flex-row items-center justify-between">
-        <input
-          type="text"
-          placeholder="Search vendor"
-          className="border-2 border-gray-500 p-2 rounded-md w-full md:w-1/2"
-          value={search}
-          onChange={handleSearchInput} 
-        />
-        <div className="relative w-full md:w-1/2 mt-4 md:mt-0">
-          <select
-            className="appearance-none border-2 border-gray-500 p-2 rounded-md w-full"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold leading-tight mt-0 mb-2 text-center">
+          Vendors List
+        </h1>
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <TextField
+            label="Search vendor"
+            variant="outlined"
             value={search}
-            onChange={handleSearchSelect} 
-          >
-            <option value="">Select Vendor</option>
-            {vendor.map((item) => (
-              <option key={item.id} value={item.name}>
-                {item.name}
-              </option>
-            ))}
-          </select>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-            <svg
-              className="fill-current h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
+            onChange={handleSearchInput}
+            className="w-full md:w-1/2"
+          />
+          <div className="relative w-full md:w-1/2 mt-4 md:mt-0">
+            <select
+              className="appearance-none border-2 border-gray-500 p-2 rounded-md w-full"
+              value={search}
+              onChange={handleSearchSelect}
             >
-              <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-            </svg>
+              <option value="">Select Vendor</option>
+              {vendor.map((item) => (
+                <option key={item.id} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
+        <div className="overflow-x-auto h-120">
+          {!showProducts ? (
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 950 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Phone</TableCell>
+                    <TableCell>Action</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {filteredVendors.map((item: any) => (
+                    <TableRow
+                      key={item.id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {item.name}
+                      </TableCell>
+                      <TableCell>{item.email}</TableCell>
+                      <TableCell>{item.phone}</TableCell>
+                      <TableCell>
+                        <p className="flex justify-between">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                              if (
+                                window.confirm(
+                                  `Are you sure you want to delete ${item.name}?`
+                                )
+                              ) {
+                                DeleteVendor(item.id);
+                              }
+                            }}
+                          >
+                            Delete
+                          </Button>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            className="ml-2"
+                            onClick={() => {
+                              GetPro(item.id);
+                            }}
+                          >
+                            Products
+                          </Button>
+                        </p>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ) : (
+            <Card className="mt-4">
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  Products
+                </Typography>
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Price</TableCell>
+                        <TableCell>Description</TableCell>
+                        <TableCell>Category</TableCell>
+                        <TableCell>Same Day Delivery</TableCell>
+                        <TableCell>Type</TableCell>
+                        <TableCell>Images</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {products.map((item: any) => (
+                        <TableRow
+                          key={item.id}
+                          sx={{
+                            '&:last-child td, &:last-child th': { border: 0 },
+                          }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {item.proName}
+                          </TableCell>
+                          <TableCell>{item.proPrice}</TableCell>
+                          <TableCell>{item.proDescription}</TableCell>
+                          <TableCell>{item.proCategory}</TableCell>
+                          <TableCell>
+                            {item.sameDay ? 'Yes' : 'No'}
+                          </TableCell>
+                          <TableCell>{item.type}</TableCell>
+                          <TableCell>
+                            <Image
+                              src={item.proImage}
+                              width={50}
+                              height={50}
+                              alt={item.proName}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </CardContent>
+              <CardActions>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    setShowProducts(false);
+                  }}
+                >
+                  Back to Vendors
+                </Button>
+              </CardActions>
+            </Card>
+          )}
+        </div>
       </div>
-      <div className="overflow-x-auto h-120">
-        {
-        (btn)?(
-          <table className="table w-full text-center mt-4">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="px-6 py-3">Name</th>
-              <th className="px-6 py-3">Email</th>
-              <th className="px-6 py-3">Phone</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredVendors.map((item: any) => (
-              <tr key={item.id} className="hover:bg-gray-100">
-                <td className="px-6 py-3">{item.name}</td>
-                <td className="px-6 py-3">{item.email}</td>
-                <td className="px-6 py-3">{item.phone}</td>
-                <td className="px-6 py-3">
-                  <button
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          `Are you sure you want to delete ${item.name}?`
-                        )
-                      ) {
-                        DeleteVendor(item.id);
-                      }
-                    }}
-                  >
-                    <FaTrash />
-                  </button>
-                </td>
-                <td>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>{GetPro(item.id)}}>Products</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        ):(
-<>
-        <table className="table w-full text-center mt-4">
-          <thead>
-            <tr className="bg-gray-200">
-            <th className="px-6 py-3 text-center">Name</th>
-                    <th className="px-6 py-3 text-center">Price</th>
-                    <th className="px-6 py-3 text-center">Description</th>
-                    <th className="px-6 py-3 text-center">Category</th>
-                    <th className="px-6 py-3 text-center">Same Day Delivery</th>
-                    <th className="px-6 py-3 text-center">Type</th>
-                    <th className="px-6 py-3 text-center">Images</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((item: any) => (
-              <tr key={item.id} className="hover:bg-gray-100">
-                <td className="px-6 py-4 text-center">{item.proName}</td>
-                <td className="px-6 py-4 text-center">{item.proPrice}</td>
-                <td className="px-6 py-4 text-center">{item.proDescription}</td>
-                <td className="px-6 py-4 text-center">{item.proCategory}</td>
-                <td className="px-6 py-4 text-center">{(item.sameDay)?("Yes"):"No"}</td>
-                <td className="px-6 py-4 text-center">{item.type}</td>
-                <td className="px-6 py-4 text-center"> <Image src={item.proImage} width={50} height={50} alt={item.proName}/>  </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>{
-          setBtn(true)
-        }} >Close</button>
-        </>
-        )
-      
-      }
-
-
-      </div>
-    </div>
-
-
     </>
   );
 };
 
 export default VendorList;
+
