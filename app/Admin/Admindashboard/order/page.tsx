@@ -18,7 +18,7 @@ const Page: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-6 bg-white rounded-md shadow-md">
+    <div className="p-6 bg-white rounded-md shadow-md overflow-scroll h-150">
       <h1 className="text-2xl font-bold mb-4">Order List</h1>
       <table className="min-w-full table-auto border-collapse border border-gray-300">
         <thead>
@@ -28,8 +28,8 @@ const Page: React.FC = () => {
             <th className="border p-2">User Email</th>
             <th className="border p-2">Mobile number</th>
             <th className="border p-2">Order Date</th>
-            <th className="border p-2">Total</th>
             <th className="border p-2">Products</th>
+            <th className="border p-2">Total</th>
             <th className="border p-2">Payment Status</th>
           </tr>
         </thead>
@@ -41,7 +41,6 @@ const Page: React.FC = () => {
               <td className="border p-2">{order.userEmail}</td>
               <td className="border p-2">{order.phoneNumber}</td>
               <td className="border p-2">{new Date(order.createdAt).toLocaleString()}</td>
-              <td className="border p-2">₹ {order.amount}</td>
               <td className="border p-2">
                 {order.products && order.products.map((item: any) => (
                   <div key={item.id} className="flex items-center mb-2">
@@ -54,6 +53,7 @@ const Page: React.FC = () => {
                   </div>
                 ))}
               </td>
+              <td className="border p-2">₹ {order.amount}</td>
               <td className="border p-2 capitalize">{order.paymentStatus}</td>
             </tr>
           ))}

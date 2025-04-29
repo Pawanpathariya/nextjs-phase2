@@ -124,7 +124,7 @@ export async function Food() {
   try {
     const products = await prisma.productCate.findMany({
       where: {
-        proCategory:'foodhampers',
+        proCategory:'foodhamper',
         status:"Accepted"
       },
     });
@@ -135,6 +135,24 @@ export async function Food() {
   }
 }
 export async function Weding() {
+  console.log("Fetching all products");
+  try {
+    const products = await prisma.productCate.findMany({
+      where: {
+        type: "marriage",
+        status:"Accepted"
+      },
+    });
+    return { success: true, products };
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return { error: 'Failed to fetch products' };
+  }
+}
+
+
+
+export async function Anniversary() {
   console.log("Fetching all products");
   try {
     const products = await prisma.productCate.findMany({
@@ -150,4 +168,50 @@ export async function Weding() {
   }
 }
 
+export async function Birthday() {
+  console.log("Fetching all products");
+  try {
+    const products = await prisma.productCate.findMany({
+      where: {
+        type: "birthday",
+        status:"Accepted"
+      },
+    });
+    return { success: true, products };
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return { error: 'Failed to fetch products' };
+  }
+}
 
+export async function Othors() {
+  console.log("Fetching all products");
+  try {
+    const products = await prisma.productCate.findMany({
+      where: {
+        type: "other",
+        status:"Accepted"
+      },
+    });
+    return { success: true, products };
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return { error: 'Failed to fetch products' };
+  }
+}
+
+
+export async function getAllProduct() {
+  console.log("Fetching all products");
+  try {
+    const products = await prisma.productCate.findMany({
+      where: {
+        status:"Accepted"
+      },
+    });
+    return { success: true, products };
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return { error: 'Failed to fetch products' };
+  }
+}

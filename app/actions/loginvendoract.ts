@@ -16,7 +16,6 @@ export async function LoginVendorAct(prevState: any, formData: FormData) {
             }
         });
         if (vendor) {
-            console.log(vendor)
             return { success: true, vendor };
         } else {
             return { error: 'Invalid email or password' };

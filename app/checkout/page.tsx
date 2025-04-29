@@ -12,6 +12,7 @@ import { Orderdatabase } from '../actions/Orderdatabase';
 import { removeallProduct } from '../redux/cartSlice';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 const CheckoutPage: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -80,12 +81,12 @@ const CheckoutPage: React.FC = () => {
               router.push('/pages/thankyou');
             } else {
               console.error('Order database error');
-              alert(' Order database error');
+              toast.error(' Order database error');
             }
-            alert(' Payment successful');
+            toast.success(' Payment successful');
           } else {
             console.error('Payment verification failed');
-            alert(' Payment verification failed');
+            toast.error(' Payment verification failed');
           }
         },
         theme: { color: '#3399cc' },
@@ -95,11 +96,11 @@ const CheckoutPage: React.FC = () => {
         const paymentObject = new (window as any).Razorpay(paymentData);
         paymentObject.open();
       } else {
-        alert(' Razorpay SDK not loaded.');
+        toast.error(' Razorpay SDK not loaded.');
       }
     } catch (err) {
       console.error('Error during payment handling:', err);
-      alert(' Something went wrong. Please try again.');
+      toast.error(' Something went wrong. Please try again.');
     }
   };
 

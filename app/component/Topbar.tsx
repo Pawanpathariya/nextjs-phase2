@@ -27,7 +27,6 @@ const Topbar: React.FC = () => {
 
   useEffect(() => {
     if (isSignedIn && user) {
-      console.log("✅ Signed In User Details:", user);
       const fullName = user.fullName; 
       const email = user.primaryEmailAddress?.emailAddress; 
       localStorage.setItem('name', fullName);
@@ -62,14 +61,15 @@ const Topbar: React.FC = () => {
           </div>
 
           <SignedOut>
-            <div className="flex flex-col space-y-2 mt-3">
+            <div className="flex items-center justify-center mt-3">
               <SignInButton>
-                <button className="px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300">
+                <button className="px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white shadow-md">
                   Sign In
                 </button>
               </SignInButton>
+              <div className="mx-2"></div>
               <SignUpButton>
-                <button className="px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300">
+                <button className="px-4 py-2 rounded-md bg-green-500 hover:bg-green-600 text-white shadow-md">
                   Sign Up
                 </button>
               </SignUpButton>
@@ -86,11 +86,12 @@ const Topbar: React.FC = () => {
          {isOpen && (
   <div style={{ zIndex: 999 }} className='absolute top-16 left-0 w-52 bg-white shadow-lg rounded-md px-6 py-4'>
     <ul className='space-y-2'>
-      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>Home</li>
-      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>Birthday Gift</li>
-      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>Wedding Gift</li>
-      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>Anniversary Gift</li>
-      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>Other Gift</li>
+      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer' onClick={()=>route.push('/')}>Home</li>
+      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer' onClick={()=>route.push('/pages/order')}>My orders</li>
+      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer' onClick={()=>route.push('/pages/birthday')}>Birthday Gift</li>
+      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer' onClick={()=>route.push('/pages/wedding')} >Wedding Gift</li>
+      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer' onClick={()=>route.push('/pages/anniversary')} >Anniversary Gift</li>
+      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer' onClick={()=>route.push('/pages/other')} >Other Gift</li>
       <li className='hover:bg-gray-100 p-2 rounded cursor-pointer' onClick={() => setIsCategoryOpen(!isCategoryOpen)}>
         <span className='flex items-center'>
           Category
@@ -98,16 +99,16 @@ const Topbar: React.FC = () => {
         </span>
         {isCategoryOpen && (
           <ul className='absolute space-y-2 pl-5 -mt-5 bg-white left-52'>
-            <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>All</li>
-            <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>Birthday Gift</li>
-            <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>Wedding Gift</li>
-            <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>Anniversary Gift</li>
-            <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>Other Gift</li>
+            <li className='hover:bg-gray-100 p-2 rounded cursor-pointer' onClick={()=>route.push('/pages/allproduct')} >All</li>
+            <li className='hover:bg-gray-100 p-2 rounded cursor-pointer' onClick={()=>route.push('/pages/birthday')} >Birthday Gift</li>
+            <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'  onClick={()=>route.push('/pages/wedding')} >Wedding Gift</li>
+            <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'  onClick={()=>route.push('/pages/anniversary')}>Anniversary Gift</li>
+            <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'  onClick={()=>route.push('/pages/other')}>Other Gift</li>
           </ul>
         )}
       </li>
-      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>About Us</li>
-      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>Contact Us</li>
+      {/* <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>About Us</li>
+      <li className='hover:bg-gray-100 p-2 rounded cursor-pointer'>Contact Us</li> */}
     </ul>
   </div>
 )}
