@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "app/section/Cele.tsx", "app/section/topcard.tsx", "lib/prisma.ts"  ],
+, "app/section/Cele.tsx", "app/section/topcard.tsx", "lib/prisma.ts", "app/actions/otpVerifyVendor.ts"  ],
   "exclude": [
     "node_modules"
   ]

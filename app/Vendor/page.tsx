@@ -1,39 +1,67 @@
 'use client'
+import React from 'react';
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-// import { Inter, Roboto_Mono } from 'next/font/google';
 import { LoginVendorAct } from "../actions/loginvendoract";
 import { useActionState } from "react";
 import { toast } from 'react-hot-toast';
-
-
-// const inter = Inter({ subsets: ['latin'], weight: '400', variable: '--font-inter' });
-// const robotoMono = Roboto_Mono({ subsets: ['latin'], weight: '400', variable: '--font-roboto-mono' });
+import { sendOtp } from "../actions/otpVerifyVendor";
 
 const initialState = {
   success: false,
   error: ''
 };
 
-// export { inter, robotoMono };
+
 
 const Login: React.FC = () => {
   const router = useRouter();
   const [state, formAction] = useActionState(LoginVendorAct, initialState);
+  const [otp, setOtp] = useState("");
+  const [otp11, setOtp11] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+ const [user, setUser] = useState<any>({});
+  const handleSendOtp = async () => {
+    if (!email || !password) {
+      toast.error("Please fill all the required fields");
+      return;
+    }
+    let response = await sendOtp(email,password);
+    setOtp11(response?.otp);
+    if (response.error) {
+      toast.error(response.error);
+      return;
+    }
+    if (response.success) {
+      toast.success("OTP sent successfully");
+     setUser(response.user);
+      setOtpSent(true);
+    }
+  };
 
-  
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (otp == otp11) {
+      localStorage.setItem("user", "vendor")
+      localStorage.setItem("email", user.email)
+      localStorage.setItem("name", user.name)
+      localStorage.setItem('id', user.id)
+        router.push("/Vendor/Vendordashboard")
+    } else {
+      toast.error("OTP is not correct");
+    }
+  };
+
+
   useEffect(() => {
-    if (state.success) {
-      console.log(state.vendor);
-      toast.success("login successfully")
-      localStorage.setItem("user","vendor")
-      localStorage.setItem("email",state.vendor.email)
-      localStorage.setItem("name",state.vendor.name)
-      localStorage.setItem('id',state.vendor.id)
+    const user = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+    if (user == 'vendor') {
       router.push("/Vendor/Vendordashboard");
     }
-  }, [state.success, router]);
+  }, []);
 
   return (
     <>
@@ -60,7 +88,7 @@ const Login: React.FC = () => {
             </span>
           </p>
         </div>
-        <form className="mt-10" action={formAction}>
+        <form onSubmit={handleSubmit} className="mt-10">
           <div className="flex flex-col mb-4">
             <label htmlFor="emailOrMobile" className="text-gray-600">
               Email ID or Mobile Number <sup>*</sup>
@@ -71,6 +99,8 @@ const Login: React.FC = () => {
               id="emailOrMobile"
               placeholder="Enter Email"
               className="shadow-lg p-3 border border-gray-300 w-full"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -84,23 +114,61 @@ const Login: React.FC = () => {
               name="password"
               placeholder="Enter Password"
               className="shadow-lg p-3 border border-gray-300 w-full"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <div
-            className="btn"
-            style={{
-              backgroundColor: "#DD2745",
-              height: "40px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              position: "relative",
-              top: "20px"
-            }}
-          >
-            <button type="submit" className="text-white">SIGN IN</button>
-          </div>
+          {otpSent && (
+            <div className="flex flex-col mb-4">
+              <label htmlFor="otp" className="text-gray-600">
+                OTP <sup>*</sup>
+              </label>
+              <input
+                type="text"
+                id="otp"
+                name="otp"
+                placeholder="Enter OTP"
+                className="shadow-lg p-3 border border-gray-300 w-full"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                required
+              />
+            </div>
+          )}
+          {!otpSent ? (
+            <div
+              className="btn"
+              style={{
+                backgroundColor: "#DD2745",
+                height: "40px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "relative",
+                top: "20px"
+              }}
+            >
+              <button type="button" className="text-white" onClick={handleSendOtp}>
+                SEND OTP
+              </button>
+            </div>
+          ) : (
+            <div
+              className="btn"
+              style={{
+                backgroundColor: "#DD2745",
+                height: "40px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "relative",
+                top: "20px"
+              }}
+            >
+              <button type="submit" className="text-white">SIGN IN</button>
+            </div>
+          )}
         </form>
 
         {state.error && (
@@ -118,3 +186,4 @@ const Login: React.FC = () => {
 }
 
 export default Login;
+

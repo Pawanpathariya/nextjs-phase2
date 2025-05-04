@@ -1,5 +1,5 @@
 'use server';
-
+import nodemailer from 'nodemailer';
 import { prisma } from '../../lib/prisma';
 import axios from 'axios';
 
@@ -48,7 +48,7 @@ export async function Productaction(prevState: any, formData: FormData) {
             }
         });
 
-        await prisma.vendor.update({
+      let result =  await prisma.vendor.update({
             where: { id: vendorId },
             data: {
                 products: {
@@ -56,6 +56,29 @@ export async function Productaction(prevState: any, formData: FormData) {
                 }
             }
         });
+
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: result.email,
+      subject: 'Your Product is created',
+      text: `Your product "${name}" has been created successfully. You can view it in your dashboard status is Pending for admin approval. Product detail is as follows: \n
+      Category: ${category} \n
+      Price: ${price} \n
+      Description: ${description} \n
+      Same Day Delivery: ${sameDay ? 'Yes' : 'No'} \n
+      Type: ${type}`,
+    };
+
+    await transporter.sendMail(mailOptions);
 
         return { success: true, productId: product.id };
     } catch (error) {
