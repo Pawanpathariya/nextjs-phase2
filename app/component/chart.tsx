@@ -21,7 +21,7 @@ export default function SalesChart() {
   }, []);
 
   return (
-    <div className="p-6 bg-white rounded-2xl shadow-xl w-full max-w-6xl mx-auto">
+    <div className="p-6 bg-white rounded-2xl shadow-xl w-full max-w-6xl mx-auto overflow-scroll">
       <h2 className="text-2xl font-semibold text-gray-800 mb-6">📈 Sales Overview</h2>
       <ResponsiveContainer width={900} height={400}>
         <LineChart data={sales}>
@@ -62,4 +62,6 @@ export default function SalesChart() {
     </div>
   );
 }
+
+
 

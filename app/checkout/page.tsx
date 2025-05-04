@@ -13,7 +13,10 @@ import { removeallProduct } from '../redux/cartSlice';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { useUser } from '@clerk/nextjs';
+
 const CheckoutPage: React.FC = () => {
+  const { user, isSignedIn } = useUser();
   const dispatch = useDispatch();
   const router = useRouter();
   const product = useSelector((state: any) => state.addtocart.cart);
@@ -22,12 +25,12 @@ const CheckoutPage: React.FC = () => {
   const [address, setAddress] = useState<string>('');
   const [pincode, setPincode] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
-  const [isMounted, setIsMounted] = useState<boolean>(false); 
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   useEffect(() => {
-    setIsMounted(true); 
+    setIsMounted(true);
 
-    const name =   typeof window !== 'undefined' ? localStorage.getItem('name') : null;
+    const name = typeof window !== 'undefined' ? localStorage.getItem('name') : null;
     const email = typeof window !== 'undefined' ? localStorage.getItem('email') : null;
     setUserInfo({ name, email });
   }, []);
@@ -37,10 +40,14 @@ const CheckoutPage: React.FC = () => {
     setTotal(totalPrice);
   }, [product]);
 
+  useEffect(() => {
+    if (!isSignedIn) {
+      router.push("/");
+    }
+  }, []);
+
   const handlePayment = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    
 
     const orderData = {
       user: {
@@ -50,7 +57,7 @@ const CheckoutPage: React.FC = () => {
         pincode,
         phoneNumber,
       },
-      amount: total * 100, 
+      amount: total * 100,
       products: product.map((item: any) => ({
         productId: item.id,
         productName: item.proName,
@@ -72,21 +79,21 @@ const CheckoutPage: React.FC = () => {
           const verifyRes = await verifyOrder(
             response.razorpay_order_id,
             response.razorpay_payment_id,
-            response.razorpay_signature,      
+            response.razorpay_signature,
           );
           if (verifyRes.isOk) {
-            const orderResponse = await Orderdatabase({response,orderData});
+            const orderResponse = await Orderdatabase({ response, orderData });
             if (orderResponse) {
               dispatch(removeallProduct({}));
               router.push('/pages/thankyou');
             } else {
               console.error('Order database error');
-              toast.error(' Order database error');
+              toast.error('Order database error');
             }
-            toast.success(' Payment successful');
+            toast.success('Payment successful');
           } else {
             console.error('Payment verification failed');
-            toast.error(' Payment verification failed');
+            toast.error('Payment verification failed');
           }
         },
         theme: { color: '#3399cc' },
@@ -96,30 +103,27 @@ const CheckoutPage: React.FC = () => {
         const paymentObject = new (window as any).Razorpay(paymentData);
         paymentObject.open();
       } else {
-        toast.error(' Razorpay SDK not loaded.');
+        toast.error('Razorpay SDK not loaded.');
       }
     } catch (err) {
       console.error('Error during payment handling:', err);
-      toast.error(' Something went wrong. Please try again.');
+      toast.error('Something went wrong. Please try again.');
     }
   };
 
   if (!isMounted) {
-    return null; 
+    return null;
   }
-
 
   return (
     <>
       <Topbar />
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 md:p-8">
         <h1 className="text-3xl font-bold mb-4">Checkout</h1>
-        <div className="flex flex-col md:flex-row">
-          
-      
-          <div className="w-full md:w-1/2 md:mr-4">
+        <div className="flex flex-col md:flex-row gap-4 overflow-x-auto">
+          <div className="w-full md:w-1/2">
             <h2 className="text-2xl font-bold mb-4">Cart Items</h2>
-            <table className="w-full">
+            <table className="min-w-full">
               <thead>
                 <tr className="bg-gray-200">
                   <th className="px-4 py-2">Image</th>
@@ -146,8 +150,7 @@ const CheckoutPage: React.FC = () => {
             <h3 className="text-2xl font-bold mt-4">Total Price: Rs. {total}</h3>
           </div>
 
-          {/* Shipping Details */}
-          <div className="w-full md:w-1/2 md:ml-4">
+          <div className="w-full md:w-1/2">
             <h2 className="text-2xl font-bold mb-4">Shipping Details</h2>
             <form>
               <div className="mb-4">
@@ -211,7 +214,6 @@ const CheckoutPage: React.FC = () => {
               </button>
             </form>
           </div>
-
         </div>
       </div>
       <Footer />
